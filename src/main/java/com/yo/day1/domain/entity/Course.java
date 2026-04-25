@@ -4,9 +4,11 @@ import com.yo.day1.domain.AudittableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class Course extends AudittableEntity {
 
     @Column(columnDefinition = "varchar(20)")

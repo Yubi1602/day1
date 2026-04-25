@@ -1,7 +1,6 @@
-spring:
+ï»¿spring:
   application:
     name: day1
-
 
   output:
     ansi:
@@ -18,7 +17,6 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        # Giúp Hibernate nh?n di?n ?úng MySQL trong XAMPP
         dialect: org.hibernate.dialect.MySQLDialect
 
   sql:

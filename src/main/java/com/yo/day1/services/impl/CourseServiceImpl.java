@@ -25,4 +25,20 @@ public class CourseServiceImpl implements CourseService {
     public Course save(Course course){
         return courseRepository.save(course);
     }
+
+    public Course update(Long id, Course course){
+        Course existing = courseRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Course not found with id: " + id));
+        existing.setCourseCode(course.getCourseCode());
+        existing.setName(course.getName());
+        existing.setDescription(course.getDescription());
+        existing.setTuitionFee(course.getTuitionFee());
+        existing.setTotalSessions(course.getTotalSessions());
+        existing.setIsActive(course.getIsActive());
+        return courseRepository.save(existing);
+    }
+
+    public void delete(Long id){
+        courseRepository.deleteById(id);
+    }
 }

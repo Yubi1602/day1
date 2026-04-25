@@ -1,0 +1,38 @@
+package com.yo.day1.domain.entity;
+
+import com.yo.day1.domain.AudittableEntity;
+import com.yo.day1.domain.enums.TeacherRole;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Entity
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class Teacher extends AudittableEntity {
+
+    @Column(columnDefinition = "varchar(20)", nullable = false, unique = true)
+    private String teacherCode;
+
+    @Column(columnDefinition = "varchar(100)", nullable = false)
+    private String fullName;
+
+    @Column(columnDefinition = "varchar(20)", nullable = false, unique = true)
+    private String phone;
+
+    @Column(columnDefinition = "varchar(100)")
+    private String email;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TeacherRole teacherRole = TeacherRole.TEACHER;
+
+    @Column(columnDefinition = "varchar(255)")
+    private String cccdImageUrl;
+
+    @Column(nullable = false)
+    private boolean isActive = true;
+}

@@ -1,6 +1,5 @@
 package com.yo.day1.controllers;
 
-import ch.qos.logback.core.encoder.EchoEncoder;
 import com.yo.day1.common.ApiResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
