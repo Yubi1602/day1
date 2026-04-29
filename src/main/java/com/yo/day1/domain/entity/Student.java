@@ -1,18 +1,22 @@
 package com.yo.day1.domain.entity;
 
+import com.yo.day1.domain.AudittableEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Data
-public class Student {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+@EqualsAndHashCode(callSuper = false)
+public class Student extends AudittableEntity {
+
+    @Column(columnDefinition = "varchar(100)")
     private String name;
+
+    @Column(columnDefinition = "varchar(100)")
     private String email;
+
+    @Column(columnDefinition = "varchar(20)")
     private String phone;
 }

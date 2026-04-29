@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "api/parent")
+@RequestMapping("/api/parents")
 @RequiredArgsConstructor
 public class ParentController {
     private final ParentService parentService;
@@ -27,7 +27,7 @@ public class ParentController {
         if (parent.isPresent()){
             return ResponseEntity.ok(ApiResponse.success("lay phu huynh thanh cong", parent.get()));
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(404).body(ApiResponse.error("khong tim thay phu huynh voi id: " + id));
         }
     }
 

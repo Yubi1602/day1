@@ -26,8 +26,8 @@ public record ApiResponse<T>(boolean success, String message, T data, LocalDateT
     }
 
 
-    public static ApiResponse<Void> error(String message) {
-        return error(message, null);
+    public static <T> ApiResponse<T> error(String message) {
+        return new ApiResponse<>(false, message, null, LocalDateTime.now());
     }
 
 

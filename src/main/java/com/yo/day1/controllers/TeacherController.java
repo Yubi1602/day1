@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "api/teacher")
+@RequestMapping("/api/teachers")
 @RequiredArgsConstructor
 public class TeacherController {
     private final TeacherService teacherService;
@@ -27,7 +27,7 @@ public class TeacherController {
         if (teacher.isPresent()){
             return ResponseEntity.ok(ApiResponse.success("lay giao vien thanh cong", teacher.get()));
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(404).body(ApiResponse.error("khong tim thay giao vien voi id: " + id));
         }
     }
 
