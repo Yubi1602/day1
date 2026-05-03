@@ -13,5 +13,5 @@ import lombok.Setter;
 public class BaseEntity  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Id;
+    private Long Id;
 }

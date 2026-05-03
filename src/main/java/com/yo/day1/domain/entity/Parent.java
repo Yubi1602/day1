@@ -22,4 +22,11 @@ public class Parent extends AudittableEntity {
 
     @Column(columnDefinition = "varchar(255)")
     private String address;
+
+    @Column(length = 20)
+    private String relationship;
+
+    @Column(length = 10)
+    private String gender;
+
 }
