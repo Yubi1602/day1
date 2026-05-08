@@ -1,5 +1,6 @@
-package com.yo.day1.dto.parent;
+package com.yo.day1.dto.teacher;
 
+import com.yo.day1.domain.enums.TeacherRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,9 +8,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ParentResponse {
+public class TeacherResponse {
 
     private Long id;
+
+    private String teacherCode;
 
     private String fullName;
 
@@ -17,9 +20,9 @@ public class ParentResponse {
 
     private String email;
 
-    private String address;
+    private TeacherRole teacherRole;
 
-    private String relationship;
+    private String cccdImageUrl;
 
-    private String gender;
+    private boolean isActive;
 }

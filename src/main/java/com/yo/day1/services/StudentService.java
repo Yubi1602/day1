@@ -8,8 +8,12 @@ import java.util.Optional;
 
 public interface StudentService {
     List<StudentResponse> findAll();
+
     Optional<StudentResponse> findById(Long id);
+
     StudentResponse create(StudentUpsertRequest req);
+
     StudentResponse update(Long id, StudentUpsertRequest req);
+
     void delete(Long id);
 }

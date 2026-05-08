@@ -1,18 +1,19 @@
 package com.yo.day1.services;
 
-import com.yo.day1.domain.entity.Teacher;
+import com.yo.day1.dto.teacher.TeacherResponse;
+import com.yo.day1.dto.teacher.TeacherUpsertRequest;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface TeacherService {
-    List<Teacher> findAll();
+    List<TeacherResponse> findAll();
 
-    Optional<Teacher> findById(Long id);
+    Optional<TeacherResponse> findById(Long id);
 
-    Teacher save(Teacher teacher);
+    TeacherResponse create(TeacherUpsertRequest req);
 
-    Teacher update(Long id, Teacher teacher);
+    TeacherResponse update(Long id, TeacherUpsertRequest req);
 
     void delete(Long id);
 }
