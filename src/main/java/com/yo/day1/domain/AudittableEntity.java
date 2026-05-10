@@ -2,6 +2,7 @@ package com.yo.day1.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,4 +21,12 @@ public class AudittableEntity extends  BaseEntity{
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+    @PrePersist
+    private void save(){
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+    private void update(){
+        updatedAt = LocalDateTime.now();
+    }
 }
