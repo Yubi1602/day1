@@ -1,5 +1,6 @@
 package com.yo.day1.services.impl;
 
+import com.yo.day1.common.exception.NotFoundException;
 import com.yo.day1.domain.entity.Course;
 import com.yo.day1.repository.CourseRepository;
 import com.yo.day1.services.CourseService;
@@ -14,21 +15,25 @@ import java.util.Optional;
 public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
 
-    public List<Course> findAll(){
+    public List<Course> findAll() {
         return courseRepository.findAll();
     }
+    @Override
+    public List<Course> findByCourseActive(){
+        return courseRepository.findByCourseActive();
+    }
 
-    public Optional<Course> findById(Long id){
+    public Optional<Course> findById(Long id) {
         return courseRepository.findById(id);
     }
 
-    public Course save(Course course){
+    public Course save(Course course) {
         return courseRepository.save(course);
     }
 
-    public Course update(Long id, Course course){
+    public Course update(Long id, Course course) {
         Course existing = courseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Course not found with id: " + id));
+                .orElseThrow(() -> new NotFoundException("Khong tim thay khoa hoc voi id: " + id));
         existing.setCourseCode(course.getCourseCode());
         existing.setName(course.getName());
         existing.setDescription(course.getDescription());
@@ -38,7 +43,12 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.save(existing);
     }
 
-    public void delete(Long id){
-        courseRepository.deleteById(id);
+
+    public void delete(Long id) {
+        if (courseRepository.existsById(id)) {
+            courseRepository.deleteById(id);
+        } else {
+            throw new NotFoundException("Khong tim thay khoa hoc voi id: " + id);
+        }
     }
 }

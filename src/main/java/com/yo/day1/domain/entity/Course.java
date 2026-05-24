@@ -1,6 +1,6 @@
 package com.yo.day1.domain.entity;
 
-import com.yo.day1.domain.AudittableEntity;
+import com.yo.day1.domain.AuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.Data;
@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Course extends AudittableEntity {
+public class Course extends AuditableEntity {
 
     @Column(columnDefinition = "varchar(20)")
     private String courseCode;

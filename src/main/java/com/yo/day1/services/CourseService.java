@@ -10,6 +10,8 @@ public interface CourseService {
 
     Optional<Course> findById(Long id);
 
+    List<Course> findByCourseActive();
+
     Course save(Course course);
 
     Course update(Long id, Course course);

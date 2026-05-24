@@ -6,42 +6,45 @@ import com.yo.day1.dto.parent.ParentUpsertRequest;
 import com.yo.day1.services.ParentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/parents")
 @RequiredArgsConstructor
+@RequestMapping("/api/parents")
 public class ParentController {
     private final ParentService parentService;
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<ParentResponse>>> getParents() {
-        return ResponseEntity.ok(ApiResponse.success("lay danh sach phu huynh thanh cong", parentService.findAll()));
+    public ApiResponse<List<ParentResponse>> getParents() {
+        return ApiResponse.success("lay danh sach phu huynh thanh cong", parentService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<ParentResponse>> getParentById(@PathVariable Long id) {
-        return parentService.findById(id)
-                .map(parent -> ResponseEntity.ok(ApiResponse.success("lay phu huynh thanh cong", parent)))
-                .orElse(ResponseEntity.status(404).body(ApiResponse.error("khong tim thay phu huynh voi id: " + id)));
+    public ApiResponse<ParentResponse> getParentById(@PathVariable Long id) {
+        Optional<ParentResponse> parent = parentService.findById(id);
+        if (parent.isPresent()) {
+            return ApiResponse.success("lay phu huynh thanh cong", parent.get());
+        } else {
+            return ApiResponse.error("khong tim thay phu huynh voi id: " + id);
+        }
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<ParentResponse>> create(@Valid @RequestBody ParentUpsertRequest req) {
-        return ResponseEntity.ok(ApiResponse.success("tao phu huynh thanh cong", parentService.create(req)));
+    public ApiResponse<ParentResponse> create(@Valid @RequestBody ParentUpsertRequest req) {
+        return ApiResponse.success("tao phu huynh thanh cong", parentService.create(req));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<ParentResponse>> update(@PathVariable Long id, @Valid @RequestBody ParentUpsertRequest req) {
-        return ResponseEntity.ok(ApiResponse.success("cap nhat phu huynh thanh cong", parentService.update(id, req)));
+    public ApiResponse<ParentResponse> update(@PathVariable Long id, @Valid @RequestBody ParentUpsertRequest req) {
+        return ApiResponse.success("cap nhat phu huynh thanh cong", parentService.update(id, req));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
+    public ApiResponse<Void> delete(@PathVariable Long id) {
         parentService.delete(id);
-        return ResponseEntity.ok(ApiResponse.successMessage("xoa phu huynh thanh cong"));
+        return ApiResponse.successMessage("xoa phu huynh thanh cong");
     }
 }

@@ -28,7 +28,7 @@ server:
 
 app:
   jwt:
-    issues: yoedu-demo
+    issuer: yoedu-demo
     secret: yoedu-demo-secret-key-12345678901234567890
     access-token-ttl-minutes: 480
     refresh-token-ttl-days: 7

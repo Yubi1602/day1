@@ -1,17 +1,14 @@
 package com.yo.day1.domain.entity;
 
-import com.yo.day1.domain.AudittableEntity;
-import com.yo.day1.domain.BaseEntity;
-import com.yo.day1.domain.enums.TeacherRole;
+import com.yo.day1.domain.AuditableEntity;
 import com.yo.day1.domain.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 @Entity
 @Table(name = "users")
 @Data
-public class User extends AudittableEntity {
+public class User extends AuditableEntity {
     @Column(nullable = false, unique = true,length = 50)
     private String username;
 

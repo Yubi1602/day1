@@ -1,6 +1,6 @@
 package com.yo.day1.domain.entity;
 
-import com.yo.day1.domain.AudittableEntity;
+import com.yo.day1.domain.AuditableEntity;
 import com.yo.day1.domain.enums.Gender;
 import com.yo.day1.domain.enums.StudentStatus;
 import jakarta.persistence.*;
@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Student extends AudittableEntity {
+public class Student extends AuditableEntity {
 
     @Column(name = "student_code", nullable = false, unique = true, length = 20)
     private String studentCode;

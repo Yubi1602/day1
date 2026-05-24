@@ -46,7 +46,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public TeacherResponse update(Long id, TeacherUpsertRequest req) {
         Teacher existing = teacherRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Khong tim thay giao vien voi id: " + id));
+                .orElseThrow(() -> new NotFoundException("Khong tim thay giao vien voi id: " + id));
         existing.setTeacherCode(req.getTeacherCode());
         existing.setFullName(req.getFullName());
         existing.setPhone(req.getPhone());

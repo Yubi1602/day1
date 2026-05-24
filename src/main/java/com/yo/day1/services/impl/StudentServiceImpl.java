@@ -50,7 +50,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentResponse update(Long id, StudentUpsertRequest req) {
         Student existing = studentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Khong tim thay hoc sinh voi id: " + id));
+                .orElseThrow(() -> new NotFoundException("Khong tim thay hoc sinh voi id: " + id));
         existing.setStudentCode(req.getStudentCode());
         existing.setFullName(req.getFullName());
         existing.setDateOfBirth(req.getDateOfBirth());
@@ -69,7 +69,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void delete(Long id) throws NotFoundException {
+    public void delete(Long id) {
         if (studentRepository.existsById(id)){
             studentRepository.deleteById(id);
         }else {

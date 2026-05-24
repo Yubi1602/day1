@@ -47,7 +47,7 @@ public class ParentServiceImpl implements ParentService {
     @Override
     public ParentResponse update(Long id, ParentUpsertRequest req) {
         Parent existing = parentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Khong tim thay phu huynh voi id: " + id));
+                .orElseThrow(() -> new NotFoundException("Khong tim thay phu huynh voi id: " + id));
         existing.setFullName(req.getFullName());
         existing.setPhone(req.getPhone());
         existing.setEmail(req.getEmail());
