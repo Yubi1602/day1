@@ -17,32 +17,32 @@ public class CourseController {
 
     @GetMapping
     public ApiResponse<List<Course>> getCourse() {
-        return ApiResponse.success("lay danh sach khoa hoc thanh cong", courseService.findAll());
+        return ApiResponse.success("Lấy danh sách khóa học thành công", courseService.findAll());
     }
 
     @GetMapping("/{id}")
     public ApiResponse<Course> getCourseById(@PathVariable Long id) {
         Optional<Course> course = courseService.findById(id);
         if (course.isPresent()) {
-            return ApiResponse.success("lay khoa hoc thanh cong", course.get());
+            return ApiResponse.success("Lấy thông tin khóa học thành công", course.get());
         } else {
-            return ApiResponse.error("khong tim thay khoa hoc voi id: " + id);
+            return ApiResponse.error("Không tìm thấy khóa học với id: " + id);
         }
     }
 
     @PostMapping
     public ApiResponse<Course> create(@RequestBody Course course) {
-        return ApiResponse.success("tao khoa hoc thanh cong", courseService.save(course));
+        return ApiResponse.success("Tạo khóa học thành công", courseService.save(course));
     }
 
     @PutMapping("/{id}")
     public ApiResponse<Course> update(@PathVariable Long id, @RequestBody Course course) {
-        return ApiResponse.success("cap nhat khoa hoc thanh cong", courseService.update(id, course));
+        return ApiResponse.success("Cập nhật thông tin khóa học thành công", courseService.update(id, course));
     }
 
     @DeleteMapping("/{id}")
     public ApiResponse<Void> delete(@PathVariable Long id) {
         courseService.delete(id);
-        return ApiResponse.successMessage("xoa khoa hoc thanh cong");
+        return ApiResponse.successMessage("Xóa khóa học thành công");
     }
 }

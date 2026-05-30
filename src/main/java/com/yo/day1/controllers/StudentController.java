@@ -19,32 +19,32 @@ public class StudentController {
 
     @GetMapping
     public ApiResponse<List<StudentResponse>> getStudents() {
-        return ApiResponse.success("lay danh sach hoc sinh thanh cong", studentService.findAll());
+        return ApiResponse.success("Lấy danh sách học sinh thành công", studentService.findAll());
     }
 
     @GetMapping("/{id}")
     public ApiResponse<StudentResponse> getStudentById(@PathVariable Long id) {
         Optional<StudentResponse> student = studentService.findById(id);
         if (student.isPresent()) {
-            return ApiResponse.success("lay hoc sinh thanh cong", student.get());
+            return ApiResponse.success("Lấy thông tin học sinh thành công", student.get());
         } else {
-            return ApiResponse.error("khong tim thay hoc sinh voi id: " + id);
+            return ApiResponse.error("Không tìm thấy học sinh với id: " + id);
         }
     }
 
     @PostMapping
     public ApiResponse<StudentResponse> create(@Valid @RequestBody StudentUpsertRequest req) {
-        return ApiResponse.success("tao hoc sinh thanh cong", studentService.create(req));
+        return ApiResponse.success("Tạo học sinh thành công", studentService.create(req));
     }
 
     @PutMapping("/{id}")
     public ApiResponse<StudentResponse> update(@PathVariable Long id, @Valid @RequestBody StudentUpsertRequest req) {
-        return ApiResponse.success("cap nhat hoc sinh thanh cong", studentService.update(id, req));
+        return ApiResponse.success("Cập nhật thông tin học sinh thành công", studentService.update(id, req));
     }
 
     @DeleteMapping("/{id}")
     public ApiResponse<Void> delete(@PathVariable Long id) {
         studentService.delete(id);
-        return ApiResponse.successMessage("xoa hoc sinh thanh cong");
+        return ApiResponse.successMessage("Xóa học sinh thành công");
     }
 }

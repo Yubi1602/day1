@@ -22,19 +22,19 @@ public class AuthController {
 
     @PostMapping("/login")
     public ApiResponse<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
-        return ApiResponse.success("Login successful", authService.login(request));
+        return ApiResponse.success("Đăng nhập thành công", authService.login(request));
     }
 
     @PostMapping("/refresh")
     public ApiResponse<AuthResponse> refresh(@Valid @RequestBody RefreshTokenRequest request) {
-        return ApiResponse.success("Token refreshed", authService.refresh(request));
+        return ApiResponse.success("Làm mới token thành công", authService.refresh(request));
     }
 
     @PostMapping("/change-password")
     public ApiResponse<Void> changePassword(Principal principal,
             @Valid @RequestBody ChangePasswordRequest request) {
         authService.changePassword(principal.getName(), request);
-        return ApiResponse.successMessage("Password changed successfully");
+        return ApiResponse.successMessage("Đổi mật khẩu thành công");
     }
 
     @GetMapping("/me")

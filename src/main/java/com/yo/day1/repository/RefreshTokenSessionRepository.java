@@ -5,7 +5,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
-import com.yo.day1.domain.RefreshTokenSession;
+import com.yo.day1.domain.entity.RefreshTokenSession;
 import com.yo.day1.domain.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

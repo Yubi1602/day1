@@ -2,6 +2,7 @@ package com.yo.day1.services.impl;
 
 import com.yo.day1.common.exception.NotFoundException;
 import com.yo.day1.domain.entity.Student;
+import com.yo.day1.dto.parent.ParentResponse;
 import com.yo.day1.dto.student.StudentResponse;
 import com.yo.day1.dto.student.StudentUpsertRequest;
 import com.yo.day1.repository.ParentRepository;
@@ -10,6 +11,7 @@ import com.yo.day1.services.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,10 +24,19 @@ public class StudentServiceImpl implements StudentService {
     private final ModelMapper mapper;
 
     private StudentResponse map(Student student) {
-        return mapper.map(student, StudentResponse.class);
+        StudentResponse res = mapper.map(student, StudentResponse.class);
+        if (student.getParent() != null) {
+            res.setParentId(student.getParent().getId());
+            res.setParent(mapper.map(student.getParent(), ParentResponse.class));
+        } else {
+            res.setParentId(null);
+            res.setParent(null);
+        }
+        return res;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<StudentResponse> findAll() {
         return studentRepository.findAll().stream()
                 .map(this::map)
@@ -33,12 +44,14 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<StudentResponse> findById(Long id) {
         return studentRepository.findById(id)
                 .map(this::map);
     }
 
     @Override
+    @Transactional
     public StudentResponse create(StudentUpsertRequest req) {
         Student stu = mapper.map(req, Student.class);
         parentRepository.findById(req.getParentId())
@@ -48,9 +61,10 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @Transactional
     public StudentResponse update(Long id, StudentUpsertRequest req) {
         Student existing = studentRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Khong tim thay hoc sinh voi id: " + id));
+                .orElseThrow(() -> new NotFoundException("Không tìm thấy học sinh với id: " + id));
         existing.setStudentCode(req.getStudentCode());
         existing.setFullName(req.getFullName());
         existing.setDateOfBirth(req.getDateOfBirth());
@@ -73,9 +87,24 @@ public class StudentServiceImpl implements StudentService {
         if (studentRepository.existsById(id)){
             studentRepository.deleteById(id);
         }else {
-            throw  new NotFoundException("Delete error");
+            throw new NotFoundException("Không tìm thấy học sinh để xóa với id: " + id);
         }
 
     }
+
+    @Transactional(readOnly = true)
+    public Student getStudentForParent(Long studentId, Long parentId) throws NotFoundException {
+        Student student = getStudent(studentId);
+        if (student.getParent() == null || !student.getParent().getId().equals(parentId)) {
+            throw new org.springframework.security.access.AccessDeniedException("Student does not belong to current parent account");
+        }
+        return student;
+    }
+
+    public Student getStudent(Long id) throws NotFoundException {
+        return studentRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Student not found: " + id));
+    }
+
 }
 

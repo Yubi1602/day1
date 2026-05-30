@@ -46,7 +46,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public TeacherResponse update(Long id, TeacherUpsertRequest req) {
         Teacher existing = teacherRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Khong tim thay giao vien voi id: " + id));
+                .orElseThrow(() -> new NotFoundException("Không tìm thấy giáo viên với id: " + id));
         existing.setTeacherCode(req.getTeacherCode());
         existing.setFullName(req.getFullName());
         existing.setPhone(req.getPhone());
@@ -63,7 +63,7 @@ public class TeacherServiceImpl implements TeacherService {
         if (teacherRepository.existsById(id)) {
             teacherRepository.deleteById(id);
         } else {
-            throw new NotFoundException("Khong tim thay giao vien voi id: " + id);
+            throw new NotFoundException("Không tìm thấy giáo viên với id: " + id);
         }
     }
 }

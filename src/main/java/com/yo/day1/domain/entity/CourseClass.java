@@ -20,20 +20,20 @@ public class CourseClass extends AuditableEntity {
     @Column(columnDefinition = "varchar(100)")
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_slot_id", nullable = false)
     private ScheduleSlot scheduleSlot;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "main_teacher_id", nullable = false)
     private Teacher mainTeacher;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assistant_teacher_id")
     private Teacher assistantTeacher;
 

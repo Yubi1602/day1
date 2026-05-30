@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = false)
+@Table(name = "students")
 public class Student extends AuditableEntity {
 
     @Column(name = "student_code", nullable = false, unique = true, length = 20)

@@ -47,7 +47,7 @@ public class ParentServiceImpl implements ParentService {
     @Override
     public ParentResponse update(Long id, ParentUpsertRequest req) {
         Parent existing = parentRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Khong tim thay phu huynh voi id: " + id));
+                .orElseThrow(() -> new NotFoundException("Không tìm thấy phụ huynh với id: " + id));
         existing.setFullName(req.getFullName());
         existing.setPhone(req.getPhone());
         existing.setEmail(req.getEmail());
@@ -63,7 +63,7 @@ public class ParentServiceImpl implements ParentService {
         if (parentRepository.existsById(id)) {
             parentRepository.deleteById(id);
         } else {
-            throw new NotFoundException("Khong tim thay phu huynh voi id: " + id);
+            throw new NotFoundException("Không tìm thấy phụ huynh với id: " + id);
         }
     }
 }

@@ -18,7 +18,7 @@ public class ScheduleSlot extends AuditableEntity {
     private String slotCode;
 
     @Column(nullable = false)
-    private Integer weekday;
+    private byte weekday;
 
     @Column(name = "start_time", nullable = false)
     private LocalTime startTime;

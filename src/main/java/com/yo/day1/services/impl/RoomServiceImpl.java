@@ -49,7 +49,7 @@ public class RoomServiceImpl implements RoomService {
         if (roomRepository.existsById(id)) {
             roomRepository.deleteById(id);
         } else {
-            throw new NotFoundException("Khong tim thay phong hoc voi id: " + id);
+            throw new NotFoundException("Không tìm thấy phòng học với id: " + id);
         }
     }
 //    public RoomResponse update(long id, RoomUpsertRequest req) {

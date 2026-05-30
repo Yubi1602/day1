@@ -2,10 +2,12 @@ package com.yo.day1.services.impl;
 
 import com.yo.day1.common.exception.NotFoundException;
 import com.yo.day1.domain.entity.Course;
+import com.yo.day1.domain.entity.CourseClass;
 import com.yo.day1.repository.CourseRepository;
 import com.yo.day1.services.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +16,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
+
+
 
     public List<Course> findAll() {
         return courseRepository.findAll();
@@ -33,7 +37,7 @@ public class CourseServiceImpl implements CourseService {
 
     public Course update(Long id, Course course) {
         Course existing = courseRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Khong tim thay khoa hoc voi id: " + id));
+                .orElseThrow(() -> new NotFoundException("Không tìm thấy khóa học với id: " + id));
         existing.setCourseCode(course.getCourseCode());
         existing.setName(course.getName());
         existing.setDescription(course.getDescription());
@@ -48,7 +52,8 @@ public class CourseServiceImpl implements CourseService {
         if (courseRepository.existsById(id)) {
             courseRepository.deleteById(id);
         } else {
-            throw new NotFoundException("Khong tim thay khoa hoc voi id: " + id);
+            throw new NotFoundException("Không tìm thấy khóa học với id: " + id);
         }
     }
+
 }

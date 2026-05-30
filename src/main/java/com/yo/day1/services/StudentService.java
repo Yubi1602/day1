@@ -1,5 +1,6 @@
 package com.yo.day1.services;
 
+import com.yo.day1.domain.entity.Student;
 import com.yo.day1.dto.student.StudentResponse;
 import com.yo.day1.dto.student.StudentUpsertRequest;
 
@@ -16,4 +17,8 @@ public interface StudentService {
     StudentResponse update(Long id, StudentUpsertRequest req);
 
     void delete(Long id);
+
+    Student getStudentForParent(Long studentId, Long parentId);
+
+    Student getStudent(Long id);
 }

@@ -31,6 +31,11 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/refresh")
                         .permitAll()
+                        .requestMatchers(
+                                "/v3/api-docs*/**",
+                                "/swagger-ui.html",
+                                "/swagger-ui/**")
+                        .permitAll()
                         .requestMatchers("/error")
                         .permitAll()
                         .anyRequest().authenticated())

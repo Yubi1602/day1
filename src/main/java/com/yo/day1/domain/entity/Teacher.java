@@ -2,16 +2,14 @@ package com.yo.day1.domain.entity;
 
 import com.yo.day1.domain.AuditableEntity;
 import com.yo.day1.domain.enums.TeacherRole;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = false)
+@Table(name = "teachers")
 public class Teacher extends AuditableEntity {
 
     @Column(columnDefinition = "varchar(20)", nullable = false, unique = true)

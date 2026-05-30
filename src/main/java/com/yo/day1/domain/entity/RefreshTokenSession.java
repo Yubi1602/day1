@@ -1,6 +1,6 @@
-package com.yo.day1.domain;
+package com.yo.day1.domain.entity;
 
-import com.yo.day1.domain.entity.User;
+import com.yo.day1.domain.AuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

@@ -3,7 +3,7 @@ package com.yo.day1.services.impl;
 import com.yo.day1.common.exception.BadRequestException;
 import com.yo.day1.common.exception.NotFoundException;
 import com.yo.day1.config.AppJwtProperties;
-import com.yo.day1.domain.RefreshTokenSession;
+import com.yo.day1.domain.entity.RefreshTokenSession;
 import com.yo.day1.domain.entity.User;
 import com.yo.day1.dto.auth.*;
 import com.yo.day1.repository.RefreshTokenSessionRepository;
@@ -33,7 +33,7 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public AuthResponse login(LoginRequest request) {
         User user = userRepository.findByUsername(request.username())
-                .orElseThrow(() -> new BadCredentialsException("Invalid credentials"));
+                .orElseThrow(() -> new BadCredentialsException("Tên đăng nhập hoặc mật khẩu không đúng"));
         return buildTokensForUser(user, request.password());
     }
 
@@ -43,39 +43,39 @@ public class AuthServiceImpl implements AuthService {
         String currentJti;
         try {
             if (!jwtService.isRefreshToken(request.refreshToken())) {
-                throw new BadCredentialsException("Invalid refresh token");
+                throw new BadCredentialsException("Token làm mới không hợp lệ");
             }
             username = jwtService.extractUsername(request.refreshToken());
             currentJti = jwtService.extractJti(request.refreshToken());
             Instant refreshExpiresAt = jwtService.extractExpiration(request.refreshToken());
             if (refreshExpiresAt == null) {
-                throw new BadCredentialsException("Invalid refresh token");
+                throw new BadCredentialsException("Token làm mới không hợp lệ");
             }
         } catch (JwtException | IllegalArgumentException ex) {
-            throw new BadCredentialsException("Invalid refresh token");
+            throw new BadCredentialsException("Token làm mới không hợp lệ hoặc đã hết hạn");
         }
 
         if (currentJti == null || currentJti.isBlank()) {
-            throw new BadCredentialsException("Invalid refresh token");
+            throw new BadCredentialsException("Token làm mới không hợp lệ");
         }
 
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new BadCredentialsException("Invalid refresh token"));
+                .orElseThrow(() -> new BadCredentialsException("Token làm mới không hợp lệ"));
 
         if (!Boolean.TRUE.equals(user.getIsActive())) {
-            throw new BadCredentialsException("Invalid refresh token");
+            throw new BadCredentialsException("Tài khoản người dùng đã bị vô hiệu hóa");
         }
 
         RefreshTokenSession currentSession = refreshTokenSessionRepository.findByJti(currentJti)
-                .orElseThrow(() -> new BadCredentialsException("Invalid refresh token"));
+                .orElseThrow(() -> new BadCredentialsException("Token làm mới không hợp lệ"));
 
         if (!currentSession.getUser().getId().equals(user.getId())) {
-            throw new BadCredentialsException("Invalid refresh token");
+            throw new BadCredentialsException("Token làm mới không hợp lệ");
         }
 
         Instant now = Instant.now();
         if (currentSession.getRevokedAt() != null || !currentSession.getExpiresAt().isAfter(now)) {
-            throw new BadCredentialsException("Invalid refresh token");
+            throw new BadCredentialsException("Token làm mới đã hết hạn hoặc đã bị thu hồi");
         }
 
         Instant accessExpiresAt = now.plusSeconds(jwtProperties.accessTokenTtlMinutes() * 60);
@@ -109,11 +109,11 @@ public class AuthServiceImpl implements AuthService {
         User user = findActiveUserByUsername(username);
 
         if (!passwordEncoder.matches(request.currentPassword(), user.getPasswordHash())) {
-            throw new BadRequestException("Current password is incorrect");
+            throw new BadRequestException("Mật khẩu hiện tại không đúng");
         }
 
         if (passwordEncoder.matches(request.newPassword(), user.getPasswordHash())) {
-            throw new BadRequestException("New password must be different from current password");
+            throw new BadRequestException("Mật khẩu mới phải khác mật khẩu hiện tại");
         }
 
         user.setPasswordHash(passwordEncoder.encode(request.newPassword()));
@@ -129,20 +129,20 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public User findActiveUserByUsername(String username) {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException("Không tìm thấy người dùng"));
         if (!Boolean.TRUE.equals(user.getIsActive())) {
-            throw new BadRequestException("User is inactive");
+            throw new BadRequestException("Tài khoản người dùng đã bị vô hiệu hóa");
         }
         return user;
     }
 
     private AuthResponse buildTokensForUser(User user, String rawPassword) {
         if (!Boolean.TRUE.equals(user.getIsActive())) {
-            throw new BadCredentialsException("User is inactive");
+            throw new BadCredentialsException("Tài khoản người dùng đã bị vô hiệu hóa");
         }
 
         if (!passwordEncoder.matches(rawPassword, user.getPasswordHash())) {
-            throw new BadCredentialsException("Invalid credentials");
+            throw new BadCredentialsException("Tên đăng nhập hoặc mật khẩu không đúng");
         }
 
         Instant now = Instant.now();
