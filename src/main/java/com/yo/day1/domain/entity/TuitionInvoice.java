@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
+
 import java.time.LocalDate;
 
 @Getter
@@ -29,20 +29,20 @@ public class TuitionInvoice extends AuditableEntity {
     @Column(name = "billing_month", nullable = false)
     private LocalDate billingMonth;
 
-    @Column(name = "original_amount", nullable = false, precision = 12, scale = 2)
-    private BigDecimal originalAmount;
+    @Column(name = "original_amount", nullable = false)
+    private float originalAmount;
 
-    @Column(name = "discount_amount", nullable = false, precision = 12, scale = 2)
-    private BigDecimal discountAmount = BigDecimal.ZERO;
+    @Column(name = "discount_amount", nullable = false)
+    private float discountAmount ;
 
-    @Column(name = "final_amount", nullable = false, precision = 12, scale = 2)
-    private BigDecimal finalAmount;
+    @Column(name = "final_amount", nullable = false)
+    private float finalAmount;
 
-    @Column(name = "amount_paid", nullable = false, precision = 12, scale = 2)
-    private BigDecimal amountPaid = BigDecimal.ZERO;
+    @Column(name = "amount_paid", nullable = false)
+    private float amountPaid ;
 
-    @Column(name = "balance_amount", nullable = false, precision = 12, scale = 2)
-    private BigDecimal balanceAmount = BigDecimal.ZERO;
+    @Column(name = "balance_amount", nullable = false)
+    private float balanceAmount;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)

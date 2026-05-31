@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
+
 import java.time.LocalDateTime;
 
 @Getter
@@ -17,12 +17,12 @@ import java.time.LocalDateTime;
 public class Payment extends AuditableEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "invoice_id", nullable = false)
-    private TuitionInvoice tuitionInvoice;
+    private TuitionInvoice invoice;
 
     @Column(name = "payment_code", length = 30,unique = true)
     private String paymentCode;
-    @Column(name = "paid_amount", precision = 12, scale = 2 , nullable = false)
-    private BigDecimal paidAmount;
+    @Column(name = "paid_amount", nullable = false)
+    private float paidAmount;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_method", nullable = false)

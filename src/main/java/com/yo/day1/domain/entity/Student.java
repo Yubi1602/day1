@@ -6,12 +6,15 @@ import com.yo.day1.domain.enums.StudentStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.math.BigDecimal;
+
 import java.time.LocalDate;
 
 @Entity
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = false)
 @Table(name = "students")
 public class Student extends AuditableEntity {
@@ -49,8 +52,8 @@ public class Student extends AuditableEntity {
     @Column(nullable = false, length = 20)
     private StudentStatus status = StudentStatus.ACTIVE;
 
-    @Column(name = "latest_score", precision = 5, scale = 2)
-    private BigDecimal latestScore = BigDecimal.ZERO;
+    @Column(name = "latest_score")
+    private float latestScore;
 
     @Column(length = 255)
     private String note;

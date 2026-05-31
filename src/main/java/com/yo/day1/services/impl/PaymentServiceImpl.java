@@ -45,7 +45,7 @@ public class PaymentServiceImpl implements PaymentService {
         }
 
         Payment payment = new Payment();
-        payment.setTuitionInvoice(invoice);
+        payment.setInvoice(invoice);
         payment.setPaymentCode(req.getPaymentCode());
         payment.setPaidAmount(req.getPaidAmount());
         payment.setPaymentMethod(req.getPaymentMethod());
@@ -68,7 +68,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     @Transactional(readOnly = true)
     public List<PaymentResponse> findByInvoiceId(Long invoiceId) {
-        return paymentRepository.findByTuitionInvoiceId(invoiceId).stream()
+        return paymentRepository.findByInvoiceId(invoiceId).stream()
                 .map(this::toResponse)
                 .toList();
     }
@@ -103,9 +103,9 @@ public class PaymentServiceImpl implements PaymentService {
 
     private PaymentResponse toResponse(Payment payment) {
         PaymentResponse response = mapper.map(payment, PaymentResponse.class);
-        if (payment.getTuitionInvoice() != null) {
-            response.setTuitionInvoiceId(payment.getTuitionInvoice().getId());
-            response.setInvoiceCode(payment.getTuitionInvoice().getInvoiceCode());
+        if (payment.getInvoice() != null) {
+            response.setTuitionInvoiceId(payment.getInvoice().getId());
+            response.setInvoiceCode(payment.getInvoice().getInvoiceCode());
         }
         if (payment.getCashierUser() != null) {
             response.setCashierUserId(payment.getCashierUser().getId());

@@ -2,7 +2,7 @@ package com.yo.day1.dto.learningresult;
 
 import lombok.Data;
 
-import java.math.BigDecimal;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -14,7 +14,7 @@ public class LearningResultResponse {
     Long courseClassId;
     String className;
     LocalDate resultMonth;
-    double score;
+    float score;
     String teacherComment;
     Long createdByUserId;
     String createdByUsername;

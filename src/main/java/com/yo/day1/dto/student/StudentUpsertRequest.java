@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -49,7 +49,7 @@ public class StudentUpsertRequest{
 
         @Min(value = 0)
         @Max(value = 10)
-        private BigDecimal latestScore = BigDecimal.ZERO;
+        private float latestScore = 0f;
 
 
         private String note;

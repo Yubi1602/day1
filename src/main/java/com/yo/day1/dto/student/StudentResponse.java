@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -40,7 +40,7 @@ public class StudentResponse {
 
     private StudentStatus status = StudentStatus.ACTIVE;
 
-    private BigDecimal latestScore = BigDecimal.ZERO;
+    private float latestScore = 0f;
 
     private String note;
 

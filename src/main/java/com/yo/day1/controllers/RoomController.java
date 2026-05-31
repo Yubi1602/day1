@@ -43,7 +43,7 @@ public class RoomController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ApiResponse<RoomResponse> update(@PathVariable long id, RoomUpsertRequest req){
+    public ApiResponse<RoomResponse> update(@PathVariable long id, @RequestBody RoomUpsertRequest req){
         return ApiResponse.success(roomService.update(id,req));
     }
     @DeleteMapping("/{id}")

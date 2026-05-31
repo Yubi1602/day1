@@ -5,13 +5,15 @@ import com.yo.day1.domain.enums.ClassStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
 @Table(name = "course_classes")
-@Data
+@Getter
+@Setter
 public class CourseClass extends AuditableEntity {
 
     @Column(columnDefinition = "varchar(20)")
@@ -23,12 +25,15 @@ public class CourseClass extends AuditableEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_slot_id", nullable = false)
     private ScheduleSlot scheduleSlot;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "main_teacher_id", nullable = false)
     private Teacher mainTeacher;
@@ -38,10 +43,12 @@ public class CourseClass extends AuditableEntity {
     private Teacher assistantTeacher;
 
     private LocalDate startDate;
+
     private LocalDate endDate;
 
     private int maxStudents;
-    @Column(columnDefinition = "decimal")
+
+    @Column(name = "tuition_fee", columnDefinition = "decimal(12,2)")
     private double tuitionFee;
 
     @Enumerated(EnumType.STRING)

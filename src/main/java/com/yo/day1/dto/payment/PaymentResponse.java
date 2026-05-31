@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
+
 import java.time.LocalDateTime;
 
 @Data
@@ -13,10 +13,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class PaymentResponse {
     private Long id;
-    private String paymentCode;
     private Long tuitionInvoiceId;
+    private String paymentCode;
     private String invoiceCode;
-    private BigDecimal paidAmount;
+    private float paidAmount;
     private PaymentMethod paymentMethod;
     private LocalDateTime paidAt;
     private Long cashierUserId;

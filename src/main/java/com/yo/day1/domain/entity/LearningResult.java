@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
+
 import java.time.LocalDate;
 
 @Getter
@@ -26,8 +26,8 @@ public class LearningResult extends AuditableEntity {
     @Column(name = "result_month", nullable = false)
     private LocalDate resultMonth;
 
-    @Column(precision = 5)
-    private BigDecimal score;
+    @Column
+    private float score;
 
     @Lob
     @Column(name = "teacher_comment")

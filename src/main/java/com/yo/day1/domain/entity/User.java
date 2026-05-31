@@ -4,10 +4,13 @@ import com.yo.day1.domain.AuditableEntity;
 import com.yo.day1.domain.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "users")
-@Data
+@Getter
+@Setter
 public class User extends AuditableEntity {
     @Column(nullable = false, unique = true,length = 50)
     private String username;

@@ -21,4 +21,5 @@ public interface StudentService {
     Student getStudentForParent(Long studentId, Long parentId);
 
     Student getStudent(Long id);
+    List<StudentResponse> findByParentId(Long parentId);
 }

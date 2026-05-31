@@ -1,10 +1,10 @@
 package com.yo.day1.dto.learningresult;
 
-import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import java.math.BigDecimal;
+
 import java.time.LocalDate;
 
 @Data
@@ -15,7 +15,7 @@ public class LearningResultCreateRequest {
     private Long courseClassId;
     @NotNull
     private LocalDate resultMonth;
-    @DecimalMin("0.0")
-    private BigDecimal score;
+    @Min(0)
+    private float score;
     private String teacherComment;
 }
